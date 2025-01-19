@@ -1,13 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, TextInput, View } from "react-native";
 import { Theme, useTheme } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
+
+import { addChatMessage } from "@/common/data";
 
 import { colors as color, fontFamily, fontSizes, hp, wp } from "@/theme";
 
 const ChatInput = () => {
   const theme = useTheme();
   const styles = makeStyles(theme);
+  const [inputText, setInputText] = useState("");
+
+  const handleSend = () => {
+    if (inputText.trim()) {
+      addChatMessage(inputText, "me");
+      setInputText("");
+    }
+  };
+
   return (
     <View style={styles.container}>
       <TextInput
@@ -15,6 +26,10 @@ const ChatInput = () => {
         style={styles.textInput}
         selectionColor={color.primary}
         placeholderTextColor={color.darkGray}
+        value={inputText}
+        onChangeText={setInputText}
+        onSubmitEditing={handleSend}
+        returnKeyType="send"
       />
       <Ionicons name="attach" size={hp(3)} color={color.darkGray} />
       <Ionicons name="image-outline" size={hp(3)} color={color.darkGray} />

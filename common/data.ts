@@ -45,3 +45,14 @@ export const chatMessages: ChatMessage[] = [
     timestamp: "2024-12-16 10:08:00",
   },
 ];
+
+// Function to add a new chat message
+export const addChatMessage = (message: string, user: "me" | "other") => {
+  const newMessage: ChatMessage = {
+    id: chatMessages.length + 1,
+    message,
+    user,
+    timestamp: new Date().toISOString(),
+  };
+  chatMessages.push(newMessage);
+};
